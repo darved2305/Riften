@@ -1,0 +1,9 @@
+# Logo sources
+
+Technology marks identify the actual stack. They remain the marks of their respective owners; their presence does not imply endorsement.
+
+- React, TypeScript, Python, FastAPI, PostgreSQL and Vercel SVGs: [Devicon](https://github.com/devicons/devicon), from the matching `icons/<technology>/<technology>-original.svg` files. [Devicon license](https://github.com/devicons/devicon/blob/master/LICENSE).
+- Nugen: the `light logo` SVG referenced by the [official Nugen documentation](https://docs.nugen.in/), retrieved from its Mintlify asset CDN.
+- Riften: this project's own mark in `public/favicon.svg`.
+
+The diagrams embed these assets, so rendering does not depend on external image requests. Regenerate them with `python scripts/make_architecture.py`.

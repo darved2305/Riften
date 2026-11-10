@@ -1,0 +1,13 @@
+{
+  "url": "https://riften-regulatory.vercel.app",
+  "verified_at": "2026-11-10T16:03:23.946Z",
+  "workspace_name": "Riften research workspace",
+  "assessments": 1,
+  "original_source_bytes": 118626,
+  "aligned_model": "model_01m72xyva7jqejx8",
+  "inference_status": "succeeded",
+  "inference_answer": "Riften is connected.",
+  "refresh_persistence": true,
+  "console_errors": [],
+  "failed_requests": []
+}
