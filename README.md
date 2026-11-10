@@ -20,7 +20,7 @@
 
 A small amendment can change the handling of hundreds of records. Riften keeps the original wording, the interpretation, the affected records, and the follow-up work connected, so you can inspect what changed and explain every next step.
 
-**The hosted app is private.** Sign in with the Vercel account that owns the project. The research workspace uses authentic RBI material and clearly labelled synthetic deposit records.
+**The hosted demo is open for viewing.** Explore the saved assessment, sources and replay results without signing in. Editing and paid Nugen requests require owner access. The research workspace uses authentic RBI material and clearly labelled synthetic deposit records.
 
 ![Riften workspace with its connected model and saved assessment](docs/assets/workspace.png)
 
@@ -95,7 +95,7 @@ Institution, product and contract-date applicability must be confirmed separatel
 
 **Imports have boundaries.** Official URL imports use an explicit HTTPS domain allowlist, public-address checks, pinned DNS connections and no redirects. Unreadable/scanned pages are flagged, never filled with invented text. CSV/JSON imports validate rows atomically and preserve blank fields as unknown.
 
-**The deployment is private.** Vercel Authentication protects production and preview URLs. The Nugen key is a server-side environment secret. Reviewer names inside the app are labels in a single-operator workflow, not a multiuser identity system.
+**Public viewing, owner-only changes.** The backend blocks public mutations before processing them, including all paid Nugen operations. Owner access uses a four-hour signed, HTTP-only, secure cookie. The Nugen key stays server-side. Reviewer names remain labels in a single-operator workflow, not a multiuser identity system.
 
 The SVG diagrams are self-contained and were rendered for visual inspection. The [editable Excalidraw scene](docs/architecture.excalidraw) is included. Regenerate them with `python scripts/make_architecture.py`.
 
@@ -176,6 +176,8 @@ Required hosted settings:
 ```text
 DATABASE_URL       PostgreSQL connection URL, managed by the Neon integration
 NUGEN_API_KEY      Nugen API credential, stored as a Vercel secret
+RIFTEN_PUBLIC_DEMO 1 to enable read-only public viewing
+RIFTEN_OWNER_TOKEN A long random owner key, stored as a Vercel secret
 ```
 
 The hosted file limit is **4 MB**; local file imports accept up to **15 MB**. The included data-transfer script copies one selected workspace into an empty PostgreSQL database and verifies original source hashes. It refuses to overwrite a populated target or create paid model jobs.

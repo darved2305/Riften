@@ -1,1 +1,12 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="theme-color" content="#fafaf9"/><link rel="icon" href="/favicon.svg"/><title>Riften</title></head><body><div id="root"></div><script type="module" src="/src/main.tsx"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="theme-color" content="#fafaf9"/><link rel="icon" href="/favicon.svg"/><title>Riften</title></head>
+<body>
+  <div id="root"><div id="startup" style="max-width:520px;margin:18vh auto;padding:24px;font:14px/1.6 system-ui,sans-serif;color:#51465f"><h1 style="font-size:24px">Riften</h1><p id="startup-message">Opening your workspace…</p><a href="/" style="color:#796398">Reload workspace</a><noscript><p>Enable JavaScript to explore Riften.</p></noscript></div></div>
+  <script>
+    function startupMessage(text) { var el = document.getElementById('startup-message'); if (el) el.textContent = text; }
+    window.addEventListener('error', function () { startupMessage('The workspace could not load. Reload the page to try again.'); }, true);
+    window.setTimeout(function () { startupMessage('The workspace is taking longer to load. Check your connection and reload the page.'); }, 15000);
+  </script>
+  <script type="module" src="/src/main.tsx"></script>
+</body></html>

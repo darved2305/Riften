@@ -56,7 +56,7 @@ import {
   Building2,
   CornerDownLeft,
 } from "lucide-react";
-import { api, post, patch, label, time } from "./api";
+import { api, post, patch, label, time, preferences } from "./api";
 
 type Item = Record<string, any>;
 type Page =
@@ -82,15 +82,15 @@ const nav = [
 export default function App() {
   const qc = useQueryClient();
   const [page, setPage] = useState<Page>(
-    (localStorage.getItem("riften-page") as Page) || "Home",
+    nav.some(n => n.name === preferences.getItem("riften-page")) ? preferences.getItem("riften-page") as Page : "Home",
   );
   const [wid, setWid] = useState(
     new URLSearchParams(window.location.search).get("workspace") ||
-      localStorage.getItem("riften-workspace") ||
+      preferences.getItem("riften-workspace") ||
       "",
   );
   const [assessmentId, setAssessmentId] = useState(
-    localStorage.getItem("riften-assessment") || "",
+    preferences.getItem("riften-assessment") || "",
   );
   const [ruleDraft, setRuleDraft] = useState<Item | null>(null);
   const [changeId, setChangeId] = useState("");
@@ -118,6 +118,11 @@ export default function App() {
   const [labResult, setLabResult] = useState<Item | null>(null);
   const [baseModels, setBaseModels] = useState<Item[]>([]);
   const composerRef = useRef<HTMLTextAreaElement>(null);
+  const accessQ = useQuery({ queryKey: ["access"], queryFn: () => api("/access"), refetchInterval: 60000 });
+  const readOnly = accessQ.data?.public_demo && !accessQ.data?.editing_allowed;
+  useEffect(() => {
+    if (readOnly && modal && modal !== "owner") setModal("owner");
+  }, [modal, readOnly]);
   const workspaceQ = useQuery({
     queryKey: ["workspaces"],
     queryFn: () => api("/workspaces"),
@@ -129,11 +134,11 @@ export default function App() {
     if (ws.length && !ws.some((x) => x.id === wid)) setWid(ws[0].id);
   }, [workspaceQ.data]);
   useEffect(() => {
-    localStorage.setItem("riften-page", page);
+    preferences.setItem("riften-page", page);
     setSearch("");
   }, [page]);
   useEffect(() => {
-    localStorage.setItem("riften-workspace", wid);
+    preferences.setItem("riften-workspace", wid);
     if (wid) {
       const url = new URL(window.location.href);
       url.searchParams.set("workspace", wid);
@@ -148,7 +153,7 @@ export default function App() {
     setRuleDraft(null);
   }, [changeId, assessmentId]);
   useEffect(() => {
-    localStorage.setItem("riften-assessment", assessmentId);
+    preferences.setItem("riften-assessment", assessmentId);
     setChangeId("");
   }, [assessmentId]);
   useEffect(() => {
@@ -249,7 +254,7 @@ export default function App() {
   const replay = replays.find((r) => r.id === replaySelected) || replays[0];
   const lab = labQ.data;
   useEffect(() => {
-    if (page !== "Model Lab" || !lab) return;
+    if (page !== "Model Lab" || !lab || readOnly) return;
     let inFlight = false;
     const timer = setInterval(async () => {
       if (inFlight) return;
@@ -285,7 +290,7 @@ export default function App() {
       inFlight = false;
     }, 15000);
     return () => clearInterval(timer);
-  }, [page, lab, wid, qc]);
+  }, [page, lab, wid, qc, readOnly]);
   const nodeDetailsQ = useQuery({
     queryKey: ["node-details", selectedNode?.id],
     queryFn: () => api("/graph/nodes/" + selectedNode?.id),
@@ -333,6 +338,7 @@ export default function App() {
   }
   async function ask(q = question) {
     if (!q.trim()) return;
+    if (readOnly) { setModal("owner"); return; }
     setAsking(true);
     setAssistantOpen(true);
     try {
@@ -582,6 +588,12 @@ export default function App() {
             <strong>{page}</strong>
           </div>
           <div className="topbar-actions">
+            {accessQ.data?.public_demo && (
+              <Button onClick={async () => {
+                if (readOnly) setModal("owner");
+                else { await post("/access/logout"); await qc.invalidateQueries({queryKey:["access"]}); }
+              }}>{readOnly ? "Owner access" : "Lock editing"}</Button>
+            )}
             <span className={"connection " + (connected ? "online" : "")}>
               <span className="dot" />
               {connected ? "Nugen aligned model" : "Local workspace"}
@@ -609,6 +621,7 @@ export default function App() {
           </div>
         </header>
         <main className={page === "Home" ? "home-main" : "content-main"}>
+          {readOnly && <div className="demo-banner"><span>Public demo · Explore saved sources, assessments and replay results. Editing and live model requests require owner access.</span></div>}
           {error && (
             <div className="error-banner">
               <AlertCircle size={16} />
@@ -3247,6 +3260,18 @@ export default function App() {
         </div>
       )}
 
+      {modal === "owner" && (
+        <Modal title="Owner access" close={() => setModal("")} busy={busy} submit="Unlock editing"
+          onSubmit={async (f) => {
+            await act(async () => {
+              await post("/access/login", {token:f.get("token")});
+              await qc.invalidateQueries({queryKey:["access"]});
+            }, "Owner access unlocked for four hours");
+          }}>
+          <p>This demo is open for exploration. The owner key unlocks changes and paid Nugen requests for this browser.</p>
+          <Field label="Owner key"><input name="token" type="password" required autoFocus autoComplete="current-password" /></Field>
+        </Modal>
+      )}
       {modal === "workspace" && (
         <Modal
           title="Create workspace"

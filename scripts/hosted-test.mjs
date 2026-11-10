@@ -2,8 +2,7 @@ import { chromium, expect } from "@playwright/test";
 import fs from "node:fs/promises";
 let raw = "";
 for await (const chunk of process.stdin) raw += chunk;
-const { url, wid, bypass } = JSON.parse(raw);
-if (!bypass) throw new Error("Missing private deployment test access");
+const { url, wid, bypass, ownerToken } = JSON.parse(raw);
 const browser = await chromium.launch({ headless: true, channel: "chromium" });
 const page = await browser.newPage({ viewport: { width: 1440, height: 960 } });
 const errors = [],
@@ -13,7 +12,7 @@ page.on("response", (r) => {
   if (r.status() >= 400)
     failed.push({ status: r.status(), path: new URL(r.url()).pathname });
 });
-await page.route(url + "/**", (route) =>
+if (bypass) await page.route(url + "/**", (route) =>
   route.continue({
     headers: {
       ...route.request().headers(),
@@ -23,6 +22,10 @@ await page.route(url + "/**", (route) =>
 );
 try {
   await page.goto(url + "/?workspace=" + wid);
+  if (ownerToken) await page.evaluate(async token => {
+    const r = await fetch('/api/access/login', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token})});
+    if (!r.ok) throw new Error('Owner login failed');
+  }, ownerToken);
   await expect(page).toHaveTitle("Riften");
   await expect(page.locator(".connection")).toHaveText("Nugen aligned model", {
     timeout: 60000,

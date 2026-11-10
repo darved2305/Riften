@@ -23,10 +23,13 @@ from .models import *
 from .ingestion import extract, safe_fetch, digest, annex_snapshots, normalize, LIMIT
 from .intelligence import compare, interpret, Rule, evaluate, model_id, textual_finding, verify_source_rule
 from .nugen import nugen, NugenError
+from .access import router as access_router, protect_demo
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(name)s %(message)s')
 log = logging.getLogger('riften')
 app = FastAPI(title='Riften', version='0.1.0')
+app.middleware('http')(protect_demo)
+app.include_router(access_router)
 app.add_middleware(CORSMiddleware, allow_origins=['http://127.0.0.1:5173','http://localhost:5173'], allow_methods=['*'], allow_headers=['*'])
 
 @app.exception_handler(NugenError)

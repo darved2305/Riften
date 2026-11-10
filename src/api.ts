@@ -1,13 +1,20 @@
+// Browser storage is optional in private and embedded browsers.
+const memory = new Map<string, string>();
+export const preferences = {
+  getItem(key: string) { try { return localStorage.getItem(key); } catch { return memory.get(key) ?? null; } },
+  setItem(key: string, value: string) { memory.set(key, value); try { localStorage.setItem(key, value); } catch { /* Keep this session usable. */ } },
+  removeItem(key: string) { memory.delete(key); try { localStorage.removeItem(key); } catch { /* Storage is optional. */ } },
+};
 // One-time preference migration after the product rename.
 for (const suffix of ["page", "workspace", "assessment"]) {
   const oldKey = "metrik-" + suffix;
   const newKey = "riften-" + suffix;
   if (
-    localStorage.getItem(newKey) === null &&
-    localStorage.getItem(oldKey) !== null
+    preferences.getItem(newKey) === null &&
+    preferences.getItem(oldKey) !== null
   )
-    localStorage.setItem(newKey, localStorage.getItem(oldKey)!);
-  localStorage.removeItem(oldKey);
+    preferences.setItem(newKey, preferences.getItem(oldKey)!);
+  preferences.removeItem(oldKey);
 }
 export async function api(path: string, options: RequestInit = {}) {
   const response = await fetch("/api" + path, {

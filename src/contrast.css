@@ -275,6 +275,10 @@ td small {
 .mobile-workspace {
   display: none;
 }
+.demo-banner { margin: 14px 0 0; padding: 10px 14px; border: 1px solid #e4def0; border-radius: 7px; background: #faf8fd; color: #665b78; font-size: 11px; line-height: 1.6; }
+.startup-error { max-width: 540px; margin: 15vh auto; padding: 28px; color: #37313f; font: 14px/1.6 Inter, sans-serif; }
+.startup-error h1 { font-size: 22px; }
+.startup-error button { padding: 10px 16px; border: 1px solid #ddd5e8; border-radius: 7px; cursor: pointer; background: #f6f2fc; }
 .graph-node {
   min-height: 92px;
 }
