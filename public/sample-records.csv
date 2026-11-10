@@ -1,0 +1,8 @@
+external_id,name,amount_inr,holder_type,deposit_type,premature_withdrawal,applicability_confirmed
+SYN-001,Synthetic individual deposit A,2500000,individual,domestic,false,true
+SYN-002,Synthetic individual deposit B,10000000,individual,domestic,false,true
+SYN-003,Synthetic individual deposit C,12000000,individual,domestic,false,true
+SYN-004,Synthetic individual deposit D,1000000,individual,domestic,true,true
+SYN-005,Synthetic corporate deposit,5000000,company,domestic,false,true
+SYN-006,Synthetic incomplete deposit,5000000,individual,domestic,,true
+SYN-007,Synthetic applicability unknown,5000000,individual,domestic,false,

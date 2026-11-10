@@ -1,0 +1,301 @@
+/* Foreground hierarchy: neutral working text, violet reserved for interaction. */
+:root {
+  --muted: #77737d;
+  --line: #ecebed;
+}
+.breadcrumbs,
+.breadcrumbs strong,
+.connection {
+  color: #747378;
+}
+.workspace-switch select {
+  color: #444348;
+}
+.page-heading h1,
+.home-greeting h1 {
+  color: #29282d;
+}
+.home-greeting p {
+  color: #747378;
+}
+.page-heading .eyebrow,
+.page-heading p,
+.section-label,
+.section-label span,
+.sidebar-note,
+.nav-label {
+  color: #747378;
+}
+.nav-item {
+  color: #66656a;
+}
+.nav-item.active {
+  color: #765c99;
+}
+.home-foot {
+  color: #747378;
+}
+.model-picker,
+.composer-controls select {
+  color: #747378;
+}
+.composer textarea {
+  font-size: 12px;
+}
+.composer textarea::placeholder {
+  color: #747378;
+}
+.recent-projects {
+  background: #f8f8f8;
+  border-radius: 0 0 12px 12px;
+}
+.composer-group {
+  background: #f8f8f8;
+  border-color: #eae8eb;
+}
+.recent-empty,
+.recent-empty button,
+.suggestions button {
+  color: #747378;
+}
+.section-title h3 {
+  color: #47464b;
+}
+.section-title > span,
+.section-title > button:not(.btn) {
+  color: #747378;
+}
+.card-top {
+  color: #747378;
+}
+.assessment-card strong {
+  color: #4f4e53;
+}
+.assessment-card small {
+  color: #747378;
+}
+.source-row strong {
+  color: #5b5a5f;
+}
+.source-row small {
+  color: #747378;
+}
+.source-row > svg {
+  color: #747378;
+}
+.activity-item p {
+  color: #747378;
+}
+.activity-item small {
+  color: #747378;
+}
+.compact-empty p {
+  color: #747378;
+}
+.text-link {
+  color: #8b6ca4;
+}
+.empty h3 {
+  color: #706f74;
+}
+.empty p {
+  color: #747378;
+}
+.source-group-title strong {
+  color: #616065;
+}
+.source-group-title small {
+  color: #747378;
+}
+.version-row {
+  color: #747378;
+}
+.version-row small {
+  color: #747378;
+}
+.metrics-strip span {
+  color: #747378;
+}
+.metrics-strip strong {
+  color: #737277;
+}
+th {
+  color: #747378;
+}
+td {
+  color: #747378;
+}
+td strong {
+  color: #6b6a6f;
+}
+td small {
+  color: #747378;
+}
+.list-toolbar > span {
+  color: #747378;
+}
+.search-field {
+  color: #747378;
+}
+.search-field input {
+  color: #747378;
+}
+.inspector-head h3 {
+  color: #717075;
+}
+.inspector-body h2 {
+  color: #747378;
+}
+.inspector-body h3 {
+  color: #747378;
+}
+.inspector-body p {
+  color: #747378;
+}
+.inspector-body dt {
+  color: #747378;
+}
+.inspector-body dd {
+  color: #747378;
+}
+.clause-heading strong {
+  color: #747378;
+}
+.clause-heading small {
+  color: #747378;
+}
+.clause-content p {
+  color: #747378;
+}
+.clause-content .section-label {
+  color: #747378;
+}
+.clause-footer {
+  color: #747378;
+}
+.removed {
+  color: #a5767c;
+}
+.added {
+  color: #75977c;
+}
+.notice {
+  color: #747378;
+}
+.notice.amber {
+  color: #a78c64;
+}
+.fine-print {
+  color: #747378 !important;
+}
+.chip {
+  color: #8c789b;
+}
+.chip.green {
+  color: #67876f;
+}
+.chip.amber {
+  color: #a98a57;
+}
+.graph-node strong {
+  color: #747378;
+}
+.graph-node small {
+  color: #747378;
+}
+.modal header h3 {
+  color: #747378;
+}
+.field > label {
+  color: #747378;
+}
+.field input,
+.field textarea,
+.field select {
+  color: #747378;
+}
+
+.graph-node.impacted {
+  border-color: #b79bcd;
+  background: #fdfaff;
+}
+.evaluation-metrics {
+  padding: 0 0 15px;
+}
+.evaluation-metrics .fine-print {
+  padding: 0 12px;
+}
+
+.model-selector {
+  position: relative;
+}
+.model-menu {
+  position: absolute;
+  left: 0;
+  top: 32px;
+  z-index: 25;
+  width: 245px;
+  padding: 7px;
+  border: 1px solid #e7e2eb;
+  border-radius: 7px;
+  background: white;
+  box-shadow: 0 5px 18px #44304d0c;
+  text-align: left;
+  animation: appear 0.14s ease-out;
+}
+.model-menu > .section-label {
+  padding: 6px 8px 9px;
+  font-size: 8px;
+}
+.model-menu > button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 8px;
+  width: 100%;
+  font-size: 10px;
+  text-align: left;
+  border-radius: 4px;
+  color: #776a81;
+}
+.model-menu > button:hover {
+  background: #f8f5fb;
+}
+.model-menu > button small {
+  display: block;
+  margin-top: 4px;
+  font-size: 8px;
+  color: #9f93a8;
+}
+.model-menu > p {
+  font-size: 10px;
+  padding: 10px 8px;
+  color: #94879c;
+}
+.mobile-workspace {
+  display: none;
+}
+.graph-node {
+  min-height: 92px;
+}
+@media (max-width: 900px) {
+  .mobile-workspace {
+    display: block;
+    border: 0;
+    padding: 4px 18px 4px 0;
+    font-size: 9px;
+    color: #77717e;
+    max-width: 155px;
+  }
+  .breadcrumbs > span {
+    display: none;
+  }
+}
+@media (max-width: 600px) {
+  .mobile-workspace {
+    max-width: 120px;
+  }
+  .model-menu {
+    width: 220px;
+  }
+}
