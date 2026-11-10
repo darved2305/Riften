@@ -1,0 +1,33 @@
+{
+  "url": "https://riften-regulatory.vercel.app",
+  "verified_at": "2026-11-10T16:46:26.154Z",
+  "public_entry": true,
+  "observations": [
+    {
+      "name": "desktop",
+      "status": 200,
+      "console_errors": [],
+      "failed_requests": []
+    },
+    {
+      "owner_login": true,
+      "owner_logout": true,
+      "public_paid_requests_blocked": true
+    },
+    {
+      "name": "mobile",
+      "status": 200,
+      "console_errors": [],
+      "failed_requests": []
+    },
+    {
+      "name": "restricted-storage",
+      "status": 200,
+      "console_errors": [],
+      "failed_requests": []
+    },
+    {
+      "failed_bundle_has_visible_recovery": true
+    }
+  ]
+}

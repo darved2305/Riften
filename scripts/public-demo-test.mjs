@@ -29,7 +29,7 @@ try {
     await expect(page.locator('.connection')).toHaveText('Nugen aligned model');
     if(!denyStorage)await expect(page.locator('.replay-counts')).toContainText('2requires review');
     if(errors.length||failed.length)throw new Error(JSON.stringify({name,errors,failed}));
-    observations.push({name,status:root.status(),console_errors:errors,failed_requests:failed});
+    observations.push({name,status:root.status(),console_errors:[...errors],failed_requests:[...failed]});
     if(name==='desktop') {
       await page.getByRole('button',{name:'Owner access',exact:true}).click();
       await expect(page.getByRole('dialog')).toContainText('Owner key');
@@ -60,5 +60,7 @@ try {
   await expect(page.locator('#startup')).toBeVisible();
   await expect(page.getByRole('link',{name:'Reload workspace'})).toBeVisible();
   observations.push({failed_bundle_has_visible_recovery:true});
-  console.log(JSON.stringify(observations));
+  const report={url,verified_at:new Date().toISOString(),public_entry:!bypass,observations};
+  await fs.writeFile('docs/public-access-verification.json',JSON.stringify(report,null,2));
+  console.log(JSON.stringify(report));
 } finally {await browser.close();}

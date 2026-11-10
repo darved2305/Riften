@@ -103,7 +103,7 @@ The SVG diagrams are self-contained and were rendered for visual inspection. The
 
 | Check | Result |
 | :--- | :--- |
-| Backend tests | 39 isolated tests, including failures and boundary conditions. |
+| Backend tests | 54 isolated tests, including public-access boundaries, failures and edge cases. |
 | Frontend | TypeScript and production bundle build pass. |
 | Browser journeys | Imports, comparisons, mapping, replay, actions, assistant, export and refresh persistence. |
 | Viewports | 1440 px, 1024 px and 390 px, plus mobile workspace selection. |

@@ -297,7 +297,7 @@ td small {
 }
 @media (max-width: 600px) {
   .mobile-workspace {
-    max-width: 120px;
+    max-width: 85px;
   }
   .model-menu {
     width: 220px;

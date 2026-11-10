@@ -43,7 +43,7 @@ svg+=edge('M200 480 V320',GREEN)+pill(200,399,'review decision')
 svg+=edge('M360 575 H420 V298 H480',GREEN)+pill(420,439,'approved condition')
 svg+=edge('M800 298 H860 V575 H920',GREEN)+pill(860,399,'bounded rules')
 svg+=edge('M1080 480 V320',GREEN)+pill(1080,439,'results + evidence')
-svg+=icon('vercel',42,716,21)+text(76,733,'Hosted on Vercel Functions in Singapore. Access is protected by Vercel Authentication.',13)
+svg+=icon('vercel',42,716,21)+text(76,733,'Hosted on Vercel Functions in Singapore. Public viewing, owner-only edits and model requests.',13)
 svg+=text(40,757,'Solid arrows show implemented paths. In-process analysis is not a durable worker queue.',11,'#8491a0')+'</svg>'
 (ASSETS/'architecture.svg').write_text(svg,encoding='utf8')
 
